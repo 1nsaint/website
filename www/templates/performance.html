@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Performance</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/performance.css">
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <button class="action-button" type="button">Refresh data</button>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section>
+        <h1 class="section-title">System Overview</h1>
+        <p class="muted">Host metrics from the RubberRobo server. Replace placeholders once APIs are ready.</p>
+      </section>
+
+      <section class="metrics-grid">
+        <article class="card metrics-panel">
+          <div class="metrics-panel__header">
+            <h2>CPU Load</h2>
+            <span class="muted">Last 15 min</span>
+          </div>
+          <div class="metrics-panel__chart">Attach chart.js graph here</div>
+        </article>
+
+        <article class="card metrics-panel">
+          <div class="metrics-panel__header">
+            <h2>Memory Usage</h2>
+            <span class="muted">Live</span>
+          </div>
+          <div class="metrics-panel__chart">Placeholder for RAM chart</div>
+        </article>
+      </section>
+
+      <section>
+        <h2 class="section-title">Docker Containers</h2>
+        <div class="card">
+          <p class="muted">Table for running containers will live here. Populate via API later.</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>

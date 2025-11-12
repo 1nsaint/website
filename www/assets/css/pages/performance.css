@@ -1,0 +1,161 @@
+.metrics-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.metrics-header .muted {
+  max-width: 680px;
+}
+
+.metrics-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+
+.metrics-panel {
+  position: relative;
+  padding: 1.5rem;
+}
+
+.metrics-panel__header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.75rem;
+}
+
+.metrics-panel__chart {
+  position: relative;
+  height: 260px;
+  margin-top: 1.5rem;
+}
+
+.metrics-panel__stats {
+  display: flex;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.stat-chip {
+  padding: 0.45rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  font-size: 0.85rem;
+}
+
+.docker-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.docker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.docker-card {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: var(--color-surface);
+  border-radius: var(--border-radius);
+  padding: 1.25rem;
+  box-shadow: 0 16px 35px -26px rgba(0, 0, 0, 0.7);
+}
+
+.docker-card__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.status-pill {
+  padding: 0.25rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.status-pill--up {
+  background: rgba(46, 204, 113, 0.18);
+  color: #6ee7b7;
+}
+
+.status-pill--down {
+  background: rgba(231, 76, 60, 0.18);
+  color: #ff9f9f;
+}
+
+.docker-card__body {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.ring {
+  position: relative;
+  width: 110px;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.ring::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(var(--ring-color, #ff7a3d) calc(var(--percent) * 1%), rgba(255, 255, 255, 0.05) 0);
+}
+
+.ring::after {
+  content: "";
+  position: absolute;
+  inset: 12px;
+  border-radius: 50%;
+  background: var(--color-surface);
+}
+
+.ring span {
+  position: relative;
+  z-index: 1;
+}
+
+.ring-label {
+  text-align: center;
+  font-size: 0.75rem;
+  color: var(--color-text-muted);
+}
+
+.docker-card__meta {
+  display: grid;
+  gap: 0.45rem;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+}
+
+.docker-card__meta strong {
+  color: var(--color-text);
+}
+
+@media (max-width: 768px) {
+  .metrics-panel__chart {
+    height: 220px;
+  }
+}

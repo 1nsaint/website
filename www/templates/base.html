@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{PAGE_TITLE}}</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  {{PAGE_STYLES}}
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__logo" id="sidebar-logo">RubberRobo</div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <div class="topbar__title" id="topbar-title">{{PAGE_HEADING}}</div>
+    <div class="topbar__actions">
+      <button class="action-button" id="sidebar-toggle" type="button">☰</button>
+      <button class="action-button" type="button">Theme</button>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      {{PAGE_CONTENT}}
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+  {{PAGE_SCRIPTS}}
+</body>
+</html>

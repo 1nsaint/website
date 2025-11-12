@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Apps</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/apps.css">
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <a class="action-button" href="/apps/presets/app-card.html">Preset</a>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section class="apps-hero card">
+        <div>
+          <h1>Featured App</h1>
+          <p class="muted">Highlight your main project. Swap the image and text when ready.</p>
+          <div class="topbar__actions">
+            <a class="action-button" href="/apps/remote/index.html">View WiFi PC Remote</a>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">All Apps</h2>
+        <div class="apps-grid" id="apps-grid">
+          <article class="card">
+            <div class="app-card__image"></div>
+            <div class="app-card__meta">
+              <h3>Placeholder App</h3>
+              <p class="muted">Use the preset file to add more app cards quickly.</p>
+              <a class="action-button" href="#">Coming Soon</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>

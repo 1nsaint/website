@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Crypto Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/crypto.css">
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <button class="action-button" id="cryptoManualRefresh" type="button">Refresh</button>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section class="crypto-header">
+        <div>
+          <h1 class="section-title">Market Overview</h1>
+          <p class="muted">Live snapshot of the top 100 cryptocurrencies. Switch between 24h and 7-day charts for deeper insight, powered by the CoinGecko API.</p>
+        </div>
+        <div class="crypto-refresh" id="cryptoRefresh">Loading…</div>
+      </section>
+
+      <section>
+        <div class="crypto-grid" id="cryptoGrid"></div>
+      </section>
+    </div>
+  </main>
+
+  <div class="crypto-modal" id="cryptoModal" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="crypto-modal__content">
+      <div class="crypto-modal__header">
+        <div>
+          <h2 id="cryptoModalTitle">Coin</h2>
+          <div class="crypto-modal__meta" id="cryptoModalMeta"></div>
+        </div>
+        <button class="crypto-modal__close" id="cryptoModalClose" type="button">Close</button>
+      </div>
+      <div class="crypto-modal__actions">
+        <button type="button" data-range="1" class="is-active">24h</button>
+        <button type="button" data-range="7">7d</button>
+      </div>
+      <div class="crypto-chart-container">
+        <canvas id="cryptoChart" aria-label="Coin price chart" role="img"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0/dist/chartjs-adapter-date-fns.bundle.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/assets/js/pages/crypto.js"></script>
+</body>
+</html>

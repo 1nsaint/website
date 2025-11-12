@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — News</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/news.css">
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <button class="action-button" type="button">Follow categories</button>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section>
+        <h1 class="section-title">Top stories</h1>
+        <div class="news-top-stories">
+          <article class="card story-card">
+            <div class="story-card__thumb"></div>
+            <div>
+              <h3>Featured headline placeholder</h3>
+              <p class="muted">Swap with real news once the backend scraper is ready.</p>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Categories</h2>
+        <div class="news-categories">
+          <span class="category-pill">All</span>
+          <span class="category-pill">Tech</span>
+          <span class="category-pill">Gaming</span>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Latest</h2>
+        <div class="news-feed">
+          <article class="card story-card">
+            <h3>Placeholder story</h3>
+            <p class="muted">Use the preset story card to add more entries quickly.</p>
+            <a class="action-button" href="#">Read more</a>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>

@@ -1,0 +1,37 @@
+.news-top-stories {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.5rem;
+}
+
+.news-categories {
+  display: flex;
+  gap: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.category-pill {
+  background: rgba(37, 117, 252, 0.14);
+  border-radius: 999px;
+  padding: 0.5rem 1rem;
+  color: var(--color-text);
+}
+
+.news-feed {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.25rem;
+}
+
+.story-card {
+  display: flex;
+  flex-direction: column;
+  gap: 0.9rem;
+}
+
+.story-card__thumb {
+  aspect-ratio: 16 / 9;
+  border-radius: 12px;
+  overflow: hidden;
+  background: rgba(0, 0, 0, 0.3);
+}

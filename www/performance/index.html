@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Performance</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/performance.css">
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <button class="action-button" type="button" id="refreshMetrics">Refresh now</button>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section class="metrics-header">
+        <div>
+          <h1 class="section-title">System Overview</h1>
+          <p class="muted">Live CPU, memory, and temperature readings from the RubberRobo server. Data updates automatically every few seconds.</p>
+        </div>
+        <div class="stat-chip" id="lastUpdated">Last updated: --</div>
+      </section>
+
+      <section class="metrics-grid">
+        <article class="card metrics-panel">
+          <div class="metrics-panel__header">
+            <h2>CPU Usage</h2>
+            <span class="muted" id="cpuSummary">--%</span>
+          </div>
+          <div class="metrics-panel__chart">
+            <canvas id="cpuChart" aria-label="CPU usage chart" role="img"></canvas>
+          </div>
+          <div class="metrics-panel__stats">
+            <span class="stat-chip" id="cpuLoadAvg">Load avg: --</span>
+            <span class="stat-chip" id="cpuTemp">Temp: -- °C</span>
+            <span class="stat-chip" id="cpuFreq">Clock: -- MHz</span>
+          </div>
+        </article>
+
+        <article class="card metrics-panel">
+          <div class="metrics-panel__header">
+            <h2>Memory Usage</h2>
+            <span class="muted" id="memorySummary">--%</span>
+          </div>
+          <div class="metrics-panel__chart">
+            <canvas id="memoryChart" aria-label="Memory usage chart" role="img"></canvas>
+          </div>
+          <div class="metrics-panel__stats">
+            <span class="stat-chip" id="memoryUsed">Used: --</span>
+            <span class="stat-chip" id="memoryTotal">Total: --</span>
+            <span class="stat-chip" id="uptime">Uptime: --</span>
+          </div>
+        </article>
+      </section>
+
+      <section>
+        <div class="docker-header">
+          <h2 class="section-title">Docker Containers</h2>
+          <div class="stat-chip" id="runningSummary">-- running containers</div>
+        </div>
+        <div class="docker-grid" id="dockerGrid">
+          <div class="card docker-card">
+            <p class="muted">Loading container stats…</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/pages/performance.js"></script>
+</body>
+</html>

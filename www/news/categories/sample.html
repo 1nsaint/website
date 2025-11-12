@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — News Category</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/news.css">
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions"></div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section>
+        <h1 class="section-title">Category Name</h1>
+        <p class="muted">Use this page for focused feeds like Minecraft news or security updates.</p>
+      </section>
+
+      <section>
+        <div class="news-feed">
+          <article class="card story-card">
+            <div class="story-card__thumb"></div>
+            <div>
+              <h3>Category story placeholder</h3>
+              <p class="muted">Add more cards or build this page dynamically from backend data.</p>
+              <a class="action-button" href="#">Read more</a>
+            </div>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>

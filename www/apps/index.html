@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Apps</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/apps.css">
+</head>
+
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <a class="action-button" href="/apps/presets/app-card.html">Preset</a>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section class="apps-hero card">
+        <div class="apps-hero__meta">
+          <img class="app-icon app-icon--large" src="/assets/pictures/icons/android-pc-remote-icon.png"
+            alt="WiFi PC Remote icon" loading="lazy">
+          <div>
+            <h1>Featured App</h1>
+            <h2>Wifi PC Remote</h2>
+            <p class="muted">Control your PC from your phone. WiFi PC Remote delivers touchpad gestures, media keys, and
+              customizable layouts.
+            <ul class="apps-hero__list muted">
+              <li>Instant characters — everything you type shows up on your PC.</li>
+              <li>Fluid touchpad gestures with tap-to-click and smooth scrolling.</li>
+              <li>One-tap media and system keys right on your screen.</li>
+              <li>Live CPU, RAM, and disk stats while you stay on the couch.</li>
+            </ul>
+            <div class="topbar__actions">
+              <a class="action-button" href="/apps/remote/index.html">View WiFi PC Remote</a>
+            </div>
+          </div>
+        </div>
+        <figure class="apps-hero__media">
+          <img src="/assets/pictures/screenshots/Screenshot_20251107_073719.png" alt="WiFi PC Remote interface preview"
+            loading="lazy">
+        </figure>
+      </section>
+
+      <section>
+        <h2 class="section-title">All Apps</h2>
+        <div class="apps-grid" id="apps-grid">
+          <a class="card app-card" href="/apps/remote/index.html">
+            <img class="app-icon" src="/assets/pictures/icons/android-pc-remote-icon.png" alt="WiFi PC Remote icon"
+              loading="lazy">
+            <div class="app-card__meta">
+              <h3>WiFi PC Remote</h3>
+              <p>Android app that turns your phone into a wireless keyboard, touchpad, and media remote for your Windows
+                PC.</p>
+            </div>
+          </a>
+
+          <a class="card app-card" href="#">
+            <img class="app-icon" src="/assets/pictures/icons/android-pc-remote-icon.png" alt="Placeholder icon"
+              loading="lazy">
+            <div class="app-card__meta">
+              <h3>Project Placeholder</h3>
+              <p>Preview how future apps will appear in the grid. Swap this card with the next app you ship.</p>
+            </div>
+          </a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+
+</html>

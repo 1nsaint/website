@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Home</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/pages/home.css">
+</head>
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <button class="action-button" type="button">Customize</button>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section>
+        <h1 class="section-title">Welcome back!</h1>
+        <p class="muted">Drop widgets from other sections here. Start by adding a new card from the toolbar.</p>
+      </section>
+
+      <section class="home-hero">
+        <article class="card">
+          <h2>Quick Stats</h2>
+          <p class="muted">Highlight important numbers from performance or news pages.</p>
+        </article>
+        <article class="card">
+          <h2>Next Actions</h2>
+          <p class="muted">Use this area for quick to-dos or shortcuts.</p>
+        </article>
+      </section>
+
+      <section>
+        <div class="section-title">Your widgets</div>
+        <div class="widget-grid" id="widget-grid">
+          <div class="card widget-placeholder">
+            Drag a widget here or click the customize button to add one.
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+</body>
+</html>
