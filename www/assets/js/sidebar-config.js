@@ -4,7 +4,8 @@ window.NavigationConfig = {
     { key: 'performance', label: 'Performance', href: '/performance/index.html' },
     { key: 'apps', label: 'Apps', href: '/apps/index.html' },
     { key: 'crypto', label: 'Crypto', href: '/crypto/index.html' },
-    { key: 'news', label: 'News', href: '/news/index.html' }
+    { key: 'news', label: 'News', href: '/news/index.html' },
+    { key: '3d-printing', label: '3D Printing', href: '/3d-printing/index.html' }
   ],
   sideNav: {
     home: [
@@ -25,9 +26,17 @@ window.NavigationConfig = {
       { label: 'Preset Card', href: '/crypto/presets/card.html' }
     ],
     news: [
-      { label: 'Headlines', href: '/news/index.html' },
+      { label: 'Headlines', href: '/news/index.html?filter=all' },
+      { label: 'Favorites', href: '/news/index.html?filter=favorites' },
+      { label: 'Tech', href: '/news/index.html?filter=tech' },
+      { label: 'Gaming', href: '/news/index.html?filter=gaming' },
+      { label: 'Patch Notes', href: '/news/patch-notes/index.html' },
       { label: 'Sample Category', href: '/news/categories/sample.html' },
       { label: 'Story Card Preset', href: '/news/presets/story-card.html' }
+    ],
+    '3d-printing': [
+      { label: 'Profile Overview', href: '/3d-printing/index.html' },
+      { label: 'Cost Calculator', href: '/3d-printing/calculator.html' }
     ]
   }
 };

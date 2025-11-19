@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — 3D Printing</title>
+  <link rel="stylesheet" href="/assets/css/base.css?v=20251113c">
+  <link rel="stylesheet" href="/assets/css/layout.css?v=20251113c">
+  <link rel="stylesheet" href="/assets/css/pages/3d-printing.css?v=20251113c">
+</head>
+
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <a class="action-button" href="/3d-printing/calculator.html">Cost Calculator</a>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section class="profile-hero card">
+        <div class="profile-hero__header">
+          <img class="profile-avatar" id="profileAvatar" src="/assets/pictures/icons/android-pc-remote-icon.png"
+            alt="Profile avatar" loading="lazy">
+          <div class="profile-hero__info">
+            <h1 id="profileName">Insaint</h1>
+            <p class="muted" id="profileBio">MakerWorld Creator</p>
+            <a class="action-button action-button--outline" href="https://makerworld.com/en/@insaint" target="_blank"
+              rel="noopener">View on MakerWorld</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="stats-grid">
+        <div class="card stat-card">
+          <div class="stat-card__icon">📦</div>
+          <div class="stat-card__content">
+            <h3 class="stat-card__value" id="statModels">—</h3>
+            <p class="stat-card__label">Models</p>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-card__icon">⬇️</div>
+          <div class="stat-card__content">
+            <h3 class="stat-card__value" id="statDownloads">—</h3>
+            <p class="stat-card__label">Downloads</p>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-card__icon">❤️</div>
+          <div class="stat-card__content">
+            <h3 class="stat-card__value" id="statLikes">—</h3>
+            <p class="stat-card__label">Likes</p>
+          </div>
+        </div>
+        <div class="card stat-card">
+          <div class="stat-card__icon">👥</div>
+          <div class="stat-card__content">
+            <h3 class="stat-card__value" id="statFollowers">—</h3>
+            <p class="stat-card__label">Followers</p>
+          </div>
+        </div>
+      </section>
+
+      <section>
+        <h2 class="section-title">Recent Models</h2>
+        <div class="models-grid" id="modelsGrid">
+          <p class="muted">Loading models...</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/pages/3d-printing.js?v=20251119c"></script>
+</body>
+
+</html>
+

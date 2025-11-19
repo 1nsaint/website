@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — 3D Printing Calculator</title>
+  <link rel="stylesheet" href="/assets/css/base.css?v=20251113c">
+  <link rel="stylesheet" href="/assets/css/layout.css?v=20251119b">
+  <link rel="stylesheet" href="/assets/css/pages/3d-printing.css?v=20251119b">
+</head>
+
+<body class="layout-shell">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <a class="action-button" href="/3d-printing/index.html">Profile Overview</a>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section class="calculator-hero">
+        <h1 class="section-title">Print Cost Calculator</h1>
+      </section>
+
+      <section class="calculator-container">
+        <div class="calculator-card card">
+          <h2 class="calculator-card__title">Cost Options</h2>
+          
+          <div class="toggle-group">
+            <label class="toggle-option">
+              <input type="checkbox" id="enableFilament" checked>
+              <span class="toggle-label">
+                <span class="toggle-icon">🧵</span>
+                <span>Calculate Filament Cost</span>
+              </span>
+            </label>
+            
+            <label class="toggle-option">
+              <input type="checkbox" id="enableElectricity">
+              <span class="toggle-label">
+                <span class="toggle-icon">⚡</span>
+                <span>Calculate Electricity Cost</span>
+              </span>
+            </label>
+          </div>
+
+          <div class="calculator-inputs">
+            <div class="input-section" id="filamentSection">
+              <h3 class="input-section__title">Filament Details</h3>
+              
+              <div class="input-group">
+                <label for="spoolCost">
+                  <span class="input-icon">💰</span>
+                  <span>Spool Cost</span>
+                </label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">$</span>
+                  <input type="number" id="spoolCost" step="0.01" min="0" placeholder="25.00">
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="spoolWeight">
+                  <span class="input-icon">⚖️</span>
+                  <span>Spool Weight (g)</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="number" id="spoolWeight" step="1" min="0" value="1000">
+                  <span class="input-suffix">g</span>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="printWeight">
+                  <span class="input-icon">🎨</span>
+                  <span>Print Weight (g)</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="number" id="printWeight" step="0.1" min="0" placeholder="50.5">
+                  <span class="input-suffix">g</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="input-section input-section--disabled" id="electricitySection">
+              <h3 class="input-section__title">Electricity Details</h3>
+              
+              <div class="input-group">
+                <label for="printerWattage">
+                  <span class="input-icon">🔌</span>
+                  <span>Printer Wattage (W)</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="number" id="printerWattage" step="1" min="0" value="300" disabled>
+                  <span class="input-suffix">W</span>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="printTime">
+                  <span class="input-icon">⏱️</span>
+                  <span>Print Time (hours)</span>
+                </label>
+                <div class="input-wrapper">
+                  <input type="number" id="printTime" step="0.1" min="0" placeholder="5.5" disabled>
+                  <span class="input-suffix">h</span>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label for="electricityRate">
+                  <span class="input-icon">💡</span>
+                  <span>Electricity Rate ($/kWh)</span>
+                </label>
+                <div class="input-wrapper">
+                  <span class="input-prefix">$</span>
+                  <input type="number" id="electricityRate" step="0.01" min="0" placeholder="0.12" disabled>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <button class="action-button action-button-calculate" id="calculateBtn">Calculate Cost</button>
+        </div>
+
+        <div class="results-card card" id="resultsCard">
+          <h2 class="results-card__title">Cost Breakdown</h2>
+          
+          <div class="result-item" id="filamentResult" style="display: none;">
+            <div class="result-label">
+              <span class="result-icon">🧵</span>
+              <span>Filament Cost</span>
+            </div>
+            <div class="result-value" id="filamentCost">$0.00</div>
+          </div>
+
+          <div class="result-item" id="electricityResult" style="display: none;">
+            <div class="result-label">
+              <span class="result-icon">⚡</span>
+              <span>Electricity Cost</span>
+            </div>
+            <div class="result-value" id="electricityCost">$0.00</div>
+          </div>
+
+          <div class="result-total">
+            <div class="result-label">
+              <span class="result-icon">💵</span>
+              <span>Total Cost</span>
+            </div>
+            <div class="result-value result-value--total" id="totalCost">$0.00</div>
+          </div>
+
+          <div class="result-details" id="resultDetails">
+            <p class="muted result-info" id="resultInfo">Enter values and click Calculate to see results</p>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/pages/calculator.js?v=20251119"></script>
+</body>
+
+</html>
+

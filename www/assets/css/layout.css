@@ -6,6 +6,8 @@ body.layout-shell {
     "sidebar topbar"
     "sidebar content";
   transition: grid-template-columns var(--transition);
+  height: 100vh;
+  overflow: hidden;
 }
 
 .sidebar {
@@ -13,9 +15,8 @@ body.layout-shell {
   background: var(--color-surface);
   border-right: 1px solid rgba(255, 255, 255, 0.05);
   padding: 1.75rem 1.35rem;
-  position: sticky;
-  top: 0;
-  min-height: 100vh;
+  height: 100vh;
+  overflow-y: auto;
   display: flex;
   flex-direction: column;
   gap: 1.4rem;
@@ -83,6 +84,18 @@ body.layout-shell {
   align-items: center;
   flex-wrap: wrap;
   flex: 1;
+  min-width: 0;
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.topbar__nav::-webkit-scrollbar {
+  height: 4px;
+}
+
+.topbar__nav::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
 }
 
 .topbar__nav-link {
@@ -90,6 +103,8 @@ body.layout-shell {
   border-radius: 999px;
   color: var(--color-text-muted);
   transition: background var(--transition), color var(--transition);
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .topbar__nav-link:hover,
@@ -102,6 +117,7 @@ body.layout-shell {
   display: flex;
   align-items: center;
   gap: 0.75rem;
+  flex-shrink: 0;
 }
 
 .action-button {
@@ -125,14 +141,20 @@ body.layout-shell {
   grid-area: content;
   padding: 2rem;
   background: radial-gradient(circle at top, rgba(37, 117, 252, 0.08), transparent 60%);
+  max-width: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 100vh;
 }
 
 .content-inner {
-  max-width: 1200px;
+  width: min(100%, 1480px);
+  max-width: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
+  overflow-x: hidden;
 }
 
 body.sidebar-collapsed {
@@ -165,11 +187,16 @@ body.sidebar-collapsed .sidebar__nav {
 
   .topbar__nav {
     overflow-x: auto;
-    scrollbar-width: none;
+    scrollbar-width: thin;
   }
 
   .topbar__nav::-webkit-scrollbar {
-    display: none;
+    height: 4px;
+  }
+
+  .topbar__nav::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 2px;
   }
 
   .sidebar {

@@ -26,6 +26,12 @@
     if (pathname.startsWith('/news')) {
       return 'news';
     }
+    if (pathname.startsWith('/3d-printing')) {
+      return '3d-printing';
+    }
+    if (pathname.startsWith('/crypto')) {
+      return 'crypto';
+    }
     if (pathname.startsWith('/home')) {
       return 'home';
     }

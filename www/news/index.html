@@ -1,14 +1,16 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>RubberRobo — News</title>
-  <link rel="stylesheet" href="/assets/css/base.css">
-  <link rel="stylesheet" href="/assets/css/layout.css">
-  <link rel="stylesheet" href="/assets/css/pages/news.css">
+  <link rel="stylesheet" href="/assets/css/base.css?v=20251113c">
+  <link rel="stylesheet" href="/assets/css/layout.css?v=20251119a">
+  <link rel="stylesheet" href="/assets/css/pages/news.css?v=20251113c">
 </head>
-<body class="layout-shell">
+
+<body class="layout-shell news-page">
   <aside class="sidebar" id="sidebar">
     <div class="sidebar__section-title" id="sidebar-section-title"></div>
     <nav class="sidebar__nav" id="sidebar-nav"></nav>
@@ -18,48 +20,37 @@
     <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
     <nav class="topbar__nav" id="topbar-nav"></nav>
     <div class="topbar__actions">
+      <form id="newsSearch" class="topbar__search" role="search">
+        <label class="sr-only" for="newsSearchInput">Search news</label>
+        <input type="search" id="newsSearchInput" name="search" placeholder="Search topics or games" autocomplete="off">
+        <button type="submit" class="action-button action-button--outline">Search</button>
+      </form>
       <button class="action-button" type="button">Follow categories</button>
     </div>
   </header>
 
   <main class="content-shell">
     <div class="content-inner">
-      <section>
-        <h1 class="section-title">Top stories</h1>
-        <div class="news-top-stories">
-          <article class="card story-card">
-            <div class="story-card__thumb"></div>
-            <div>
-              <h3>Featured headline placeholder</h3>
-              <p class="muted">Swap with real news once the backend scraper is ready.</p>
-            </div>
-          </article>
-        </div>
+      <section class="release-carousel">
+        <h1 class="section-title">Upcoming Releases</h1>
+        <div class="release-feed release-feed--carousel" id="releaseFeed"></div>
       </section>
 
       <section>
-        <h2 class="section-title">Categories</h2>
-        <div class="news-categories">
-          <span class="category-pill">All</span>
-          <span class="category-pill">Tech</span>
-          <span class="category-pill">Gaming</span>
-        </div>
+        <h2 class="section-title">Top stories</h2>
+        <div class="news-top-stories" id="newsFeatured"></div>
       </section>
 
       <section>
         <h2 class="section-title">Latest</h2>
-        <div class="news-feed">
-          <article class="card story-card">
-            <h3>Placeholder story</h3>
-            <p class="muted">Use the preset story card to add more entries quickly.</p>
-            <a class="action-button" href="#">Read more</a>
-          </article>
-        </div>
+        <div class="news-feed" id="newsFeed"></div>
       </section>
     </div>
   </main>
 
-  <script src="/assets/js/sidebar-config.js"></script>
-  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/sidebar-config.js?v=20251113"></script>
+  <script src="/assets/js/layout.js?v=20251113"></script>
+  <script src="/assets/js/pages/news.js?v=20251113c"></script>
 </body>
+
 </html>
