@@ -151,7 +151,7 @@
     } else {
       // Set defaults if nothing saved
       if (!spoolWeightInput.value) spoolWeightInput.value = '1000';
-      if (!printerWattageInput.value) printerWattageInput.value = '300';
+      if (!printerWattageInput.value) printerWattageInput.value = '100';
     }
   };
 
