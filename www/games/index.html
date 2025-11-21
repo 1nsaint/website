@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Games</title>
+  <link rel="stylesheet" href="/assets/css/base.css?v=20251113c">
+  <link rel="stylesheet" href="/assets/css/layout.css?v=20251121b">
+  <link rel="stylesheet" href="/assets/css/pages/games.css?v=20251122c">
+</head>
+
+<body class="layout-shell games-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title" id="sidebar-section-title"></div>
+    <nav class="sidebar__nav" id="sidebar-nav"></nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav"></nav>
+    <div class="topbar__actions">
+      <form id="gamesSearch" class="topbar__search" role="search">
+        <label class="sr-only" for="gamesSearchInput">Search games</label>
+        <input type="search" id="gamesSearchInput" name="search" placeholder="Search games..." autocomplete="off">
+        <button type="submit" class="action-button action-button--outline">Search</button>
+      </form>
+    </div>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section>
+        <h1 class="section-title" id="gamesTitle">Featured Games</h1>
+        <p class="muted" id="gamesSubtitle">Discover games from our collection</p>
+      </section>
+
+      <section>
+        <div class="games-grid" id="gamesGrid">
+          <div class="games-loading">Loading games...</div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script src="/assets/js/sidebar-config.js?v=20251113"></script>
+  <script src="/assets/js/layout.js?v=20251113"></script>
+  <script src="/assets/js/pages/games.js?v=20251122a"></script>
+</body>
+
+</html>
