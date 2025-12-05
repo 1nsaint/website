@@ -1,5 +1,5 @@
 (() => {
-  console.log('[Games] Script starting');
+  console.log('[Games] Script starting with genre filtering and pagination');
   const gamesGrid = document.getElementById('gamesGrid');
   const gamesTitle = document.getElementById('gamesTitle');
   const gamesSubtitle = document.getElementById('gamesSubtitle');
@@ -28,6 +28,14 @@
   const initialSearch = urlParams.get('search') || '';
   const gameSlug = urlParams.get('game') || '';
   const platform = urlParams.get('platform') || '';
+  const genre = urlParams.get('genre') || '';
+
+  // Pagination state
+  let currentOffset = 0;
+  const GAMES_PER_PAGE = 100;
+  let currentPlatform = null;
+  let currentGenre = null;
+  let hasMoreGames = false;
 
   // Format date
   const formatDate = (dateString) => {
@@ -40,74 +48,254 @@
     }
   };
 
-  // Platform categories organized by manufacturer
+  // Platform categories
   const PLATFORM_FAMILIES = {
     nintendo: {
       name: 'Nintendo',
       logo: '/assets/images/platforms/nintendo.png',
       homeConsoles: [
-        { id: 'nes', name: 'NES', logo: '/assets/images/platforms/nes.png', year: 1983 },
-        { id: 'snes', name: 'SNES', logo: '/assets/images/platforms/snes.png', year: 1990 },
-        { id: 'nintendo-64', name: 'Nintendo 64', logo: '/assets/images/platforms/n64.png', year: 1996 },
-        { id: 'gamecube', name: 'GameCube', logo: '/assets/images/platforms/gamecube.png', year: 2001 },
-        { id: 'nintendo-wii', name: 'Wii', logo: '/assets/images/platforms/wii.png', year: 2006 },
-        { id: 'nintendo-wii-u', name: 'Wii U', logo: '/assets/images/platforms/wiiu.png', year: 2012 },
-        { id: 'nintendo-switch', name: 'Switch', logo: '/assets/images/platforms/switch.png', year: 2017 },
+        { id: 'nes', name: 'NES', logo: '/assets/images/platforms/nes.png' },
+        { id: 'snes', name: 'SNES', logo: '/assets/images/platforms/snes.png' },
+        { id: 'nintendo-64', name: 'Nintendo 64', logo: '/assets/images/platforms/n64.png' },
+        { id: 'gamecube', name: 'GameCube', logo: '/assets/images/platforms/gamecube.png' },
+        { id: 'nintendo-wii', name: 'Wii', logo: '/assets/images/platforms/wii.png' },
+        { id: 'nintendo-wii-u', name: 'Wii U', logo: '/assets/images/platforms/wiiu.png' },
+        { id: 'nintendo-switch', name: 'Switch', logo: '/assets/images/platforms/switch.png' },
       ],
       handhelds: [
-        { id: 'game-boy', name: 'Game Boy', logo: '/assets/images/platforms/gameboy.png', year: 1989 },
-        { id: 'game-boy-color', name: 'Game Boy Color', logo: '/assets/images/platforms/gbc.png', year: 1998 },
-        { id: 'game-boy-advance', name: 'Game Boy Advance', logo: '/assets/images/platforms/gba.png', year: 2001 },
-        { id: 'nintendo-ds', name: 'Nintendo DS', logo: '/assets/images/platforms/nds.png', year: 2004 },
-        { id: 'nintendo-3ds', name: '3DS', logo: '/assets/images/platforms/3ds.png', year: 2011 },
+        { id: 'game-boy', name: 'Game Boy', logo: '/assets/images/platforms/gameboy.png' },
+        { id: 'game-boy-color', name: 'Game Boy Color', logo: '/assets/images/platforms/gbc.png' },
+        { id: 'game-boy-advance', name: 'Game Boy Advance', logo: '/assets/images/platforms/gba.png' },
+        { id: 'nintendo-ds', name: 'Nintendo DS', logo: '/assets/images/platforms/nds.png' },
+        { id: 'nintendo-3ds', name: '3DS', logo: '/assets/images/platforms/3ds.png' },
       ]
     },
     pc: {
       name: 'PC',
       logo: '/assets/images/platforms/pc.png',
       platforms: [
-        { id: 'pc-windows', name: 'PC (Windows)', logo: '/assets/images/platforms/windows.png', year: 1985 },
-        { id: 'steam', name: 'Steam', logo: '/assets/images/platforms/steam.png', year: 2003 },
+        { id: 'pc-windows', name: 'PC (Windows)', logo: '/assets/images/platforms/windows.png' },
+        { id: 'steam', name: 'Steam', logo: '/assets/images/platforms/steam.png' },
       ]
     },
     playstation: {
       name: 'PlayStation',
       logo: '/assets/images/platforms/playstation.png',
       platforms: [
-        { id: 'ps1', name: 'PlayStation', logo: '/assets/images/platforms/ps1.png', year: 1994 },
-        { id: 'ps2', name: 'PlayStation 2', logo: '/assets/images/platforms/ps2.png', year: 2000 },
-        { id: 'psp', name: 'PSP', logo: '/assets/images/platforms/psp.png', year: 2004 },
-        { id: 'ps3', name: 'PlayStation 3', logo: '/assets/images/platforms/ps3.png', year: 2006 },
-        { id: 'ps-vita', name: 'PS Vita', logo: '/assets/images/platforms/psvita.png', year: 2011 },
-        { id: 'ps4', name: 'PlayStation 4', logo: '/assets/images/platforms/ps4.png', year: 2013 },
-        { id: 'ps5', name: 'PlayStation 5', logo: '/assets/images/platforms/ps5.png', year: 2020 },
+        { id: 'ps1', name: 'PlayStation', logo: '/assets/images/platforms/ps1.png' },
+        { id: 'ps2', name: 'PlayStation 2', logo: '/assets/images/platforms/ps2.png' },
+        { id: 'psp', name: 'PSP', logo: '/assets/images/platforms/psp.png' },
+        { id: 'ps3', name: 'PlayStation 3', logo: '/assets/images/platforms/ps3.png' },
+        { id: 'ps-vita', name: 'PS Vita', logo: '/assets/images/platforms/psvita.png' },
+        { id: 'ps4', name: 'PlayStation 4', logo: '/assets/images/platforms/ps4.png' },
+        { id: 'ps5', name: 'PlayStation 5', logo: '/assets/images/platforms/ps5.png' },
       ]
     },
     xbox: {
       name: 'Xbox',
       logo: '/assets/images/platforms/xbox.png',
       platforms: [
-        { id: 'xbox', name: 'Xbox', logo: '/assets/images/platforms/xbox-original.png', year: 2001 },
-        { id: 'xbox-360', name: 'Xbox 360', logo: '/assets/images/platforms/xbox360.png', year: 2005 },
-        { id: 'xbox-one', name: 'Xbox One', logo: '/assets/images/platforms/xboxone.png', year: 2013 },
-        { id: 'xbox-series', name: 'Xbox Series X|S', logo: '/assets/images/platforms/xboxseries.png', year: 2020 },
+        { id: 'xbox', name: 'Xbox', logo: '/assets/images/platforms/xbox-original.png' },
+        { id: 'xbox-360', name: 'Xbox 360', logo: '/assets/images/platforms/xbox360.png' },
+        { id: 'xbox-one', name: 'Xbox One', logo: '/assets/images/platforms/xboxone.png' },
+        { id: 'xbox-series', name: 'Xbox Series X|S', logo: '/assets/images/platforms/xboxseries.png' },
       ]
     }
   };
 
-  // Create flat list of all platforms for easy lookup
-  const PLATFORMS = [];
-  Object.values(PLATFORM_FAMILIES).forEach(family => {
-    if (family.homeConsoles) {
-      PLATFORMS.push(...family.homeConsoles);
+  // Fetch genres for platform
+  const fetchGenres = async (platformId) => {
+    try {
+      const url = `${API_BASE}/api/games/genres?platform=${platformId}`;
+      console.log('[Games] Fetching genres from:', url);
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const genres = await response.json();
+      console.log(`[Games] Fetched ${genres.length} genres`);
+      return genres;
+    } catch (error) {
+      console.error('[Games] Error fetching genres:', error);
+      return [];
     }
-    if (family.handhelds) {
-      PLATFORMS.push(...family.handhelds);
+  };
+
+  // Render genres as accordion
+  const renderGenres = async (platformId, platformName) => {
+    // Set platform family for border coloring
+    currentPlatformFamily = getPlatformFamilyFromId(platformId);
+    
+    gamesTitle.textContent = platformName;
+    gamesSubtitle.textContent = 'Select a genre to browse games';
+    
+    gamesGrid.innerHTML = '<div class="games-loading">Loading genres...</div>';
+    
+    const genres = await fetchGenres(platformId);
+    
+    if (!genres || genres.length === 0) {
+      gamesGrid.innerHTML = `
+        <div class="games-empty">
+          <h3>No genres available</h3>
+          <p>Try loading games for this platform first</p>
+        </div>
+      `;
+      return;
     }
-    if (family.platforms) {
-      PLATFORMS.push(...family.platforms);
+
+    gamesGrid.innerHTML = `
+      <div class="genre-list">
+        ${genres.map(genre => `
+          <div class="genre-item">
+            <button class="genre-button" data-genre="${genre}" data-platform="${platformId}">
+              <span class="genre-name">${genre}</span>
+              <span class="genre-icon">▼</span>
+            </button>
+            <div class="genre-games" id="genre-${slugify(genre)}" style="display: none;"></div>
+          </div>
+        `).join('')}
+      </div>
+    `;
+
+    // Add click handlers for genres
+    document.querySelectorAll('.genre-button').forEach(button => {
+      button.addEventListener('click', async () => {
+        const genreName = button.dataset.genre;
+        const platformId = button.dataset.platform;
+        const gamesContainer = document.getElementById(`genre-${slugify(genreName)}`);
+        
+        // Toggle visibility
+        if (gamesContainer.style.display === 'none') {
+          // Close other genres
+          document.querySelectorAll('.genre-games').forEach(g => g.style.display = 'none');
+          document.querySelectorAll('.genre-button').forEach(b => b.classList.remove('is-active'));
+          
+          // Open this genre
+          gamesContainer.style.display = 'block';
+          button.classList.add('is-active');
+          
+          // Reset pagination
+          currentOffset = 0;
+          currentPlatform = platformId;
+          currentGenre = genreName;
+          
+          // Load games
+          await loadGenreGames(platformId, genreName, gamesContainer);
+        } else {
+          // Close this genre
+          gamesContainer.style.display = 'none';
+          button.classList.remove('is-active');
+        }
+      });
+    });
+  };
+
+  // Detect platform family from platform ID (context-aware)
+  const getPlatformFamilyFromId = (platformId) => {
+    if (!platformId) return 'pc';
+    
+    const id = platformId.toLowerCase();
+    
+    // Nintendo platforms
+    if (id.includes('nintendo') || id.includes('game-boy') || 
+        id === 'nes' || id === 'snes' || id === 'wii' || 
+        id.includes('switch') || id === 'gamecube' || id.includes('3ds')) {
+      return 'nintendo';
     }
-  });
+    
+    // PlayStation platforms
+    if (id.includes('playstation') || id.includes('ps') || 
+        id === 'psp' || id.includes('vita')) {
+      return 'playstation';
+    }
+    
+    // Xbox platforms
+    if (id.includes('xbox')) {
+      return 'xbox';
+    }
+    
+    // PC/Steam
+    return 'pc';
+  };
+  
+  // Store current platform family for border coloring
+  let currentPlatformFamily = 'pc';
+
+  // Load games for a genre
+  const loadGenreGames = async (platformId, genreName, container, append = false) => {
+    try {
+      if (!append) {
+        container.innerHTML = '<div class="games-loading">Loading games...</div>';
+      }
+      
+      const url = `${API_BASE}/api/games?platform=${platformId}&genre=${encodeURIComponent(genreName)}&limit=${GAMES_PER_PAGE}&offset=${currentOffset}`;
+      console.log('[Games] Fetching:', url);
+      
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      
+      const games = await response.json();
+      console.log(`[Games] Fetched ${games.length} games`);
+      
+      hasMoreGames = games.length === GAMES_PER_PAGE;
+      
+      // Render games (use current platform family for border color)
+      const gamesHTML = games.map(game => {
+        const coverUrl = game.cover_url || '/assets/images/placeholder-game.png';
+        const releaseDate = formatDate(game.release_date);
+        
+        return `
+          <a href="?game=${encodeURIComponent(game.slug)}" class="game-card" data-slug="${game.slug}">
+            <div class="game-card__cover game-card__cover--${currentPlatformFamily}">
+              <img src="${coverUrl}" alt="${game.title}" loading="lazy" onerror="this.src='/assets/images/placeholder-game.png'">
+            </div>
+            <div>
+              <h3 class="game-card__title">${game.title}</h3>
+              ${releaseDate ? `<div class="game-card__meta"><span class="game-card__release-date">${releaseDate}</span></div>` : ''}
+            </div>
+          </a>
+        `;
+      }).join('');
+      
+      if (append) {
+        // Remove loading indicator and append new games
+        const loadMoreBtn = container.querySelector('.load-more-button');
+        if (loadMoreBtn) loadMoreBtn.remove();
+        
+        const gamesGridDiv = container.querySelector('.games-grid');
+        if (gamesGridDiv) {
+          gamesGridDiv.innerHTML += gamesHTML;
+        }
+      } else {
+        container.innerHTML = `
+          <div class="games-grid">
+            ${gamesHTML}
+          </div>
+        `;
+      }
+      
+      // Add load more button if there are more games
+      if (hasMoreGames) {
+        const loadMoreBtn = document.createElement('button');
+        loadMoreBtn.className = 'load-more-button';
+        loadMoreBtn.textContent = 'Load More Games';
+        loadMoreBtn.addEventListener('click', async () => {
+          currentOffset += GAMES_PER_PAGE;
+          loadMoreBtn.textContent = 'Loading...';
+          loadMoreBtn.disabled = true;
+          await loadGenreGames(platformId, genreName, container, true);
+        });
+        container.appendChild(loadMoreBtn);
+      }
+      
+    } catch (error) {
+      console.error('[Games] Error loading games:', error);
+      container.innerHTML = `<div class="games-empty"><p>Error loading games: ${error.message}</p></div>`;
+    }
+  };
+
+  // Helper: slugify
+  const slugify = (text) => {
+    return text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/(^-|-$)/g, '');
+  };
 
   // Render platform categories
   const renderPlatforms = () => {
@@ -116,7 +304,6 @@
     gamesGrid.innerHTML = `
       <div class="platform-families">
         ${Object.entries(PLATFORM_FAMILIES).map(([familyId, family]) => {
-          // Special handling for Nintendo (two columns)
           if (familyId === 'nintendo' && family.homeConsoles && family.handhelds) {
             return `
               <div class="platform-family-card">
@@ -144,7 +331,6 @@
             `;
           }
           
-          // Regular two-column layout for other families
           const platforms = family.platforms || [];
           const midPoint = Math.ceil(platforms.length / 2);
           const leftColumn = platforms.slice(0, midPoint);
@@ -182,86 +368,26 @@
     document.querySelectorAll('.platform-button').forEach(button => {
       button.addEventListener('click', () => {
         const platformId = button.dataset.platform;
+        const platformName = button.title;
         const url = new URL(window.location);
         url.searchParams.set('platform', platformId);
         url.searchParams.delete('game');
         url.searchParams.delete('search');
+        url.searchParams.delete('genre');
         window.history.pushState({}, '', url);
         
-        // Update active state
-        document.querySelectorAll('.platform-button').forEach(b => b.classList.remove('is-active'));
-        button.classList.add('is-active');
-        
-        fetchGames('', false, null, platformId);
+        renderGenres(platformId, platformName);
       });
     });
   };
 
-  // Render games - grid for browsing, list for search
-  const renderGames = (games, isSearch = false) => {
-    if (!games || games.length === 0) {
-      gamesGrid.innerHTML = `
-        <div class="games-empty">
-          <h3>No games found</h3>
-          <p>${isSearch ? 'Try a different search term' : 'Check back later for more games'}</p>
-        </div>
-      `;
-      return;
-    }
-
-    // For search results, show as individual clickable items (not grid)
-    if (isSearch) {
-      gamesGrid.className = 'games-list';
-      gamesGrid.innerHTML = games.map(game => {
-        const coverUrl = game.cover_url || '/assets/images/placeholder-game.png';
-        const releaseDate = formatDate(game.release_date);
-        
-        return `
-          <a href="?game=${encodeURIComponent(game.slug)}" class="game-search-result" data-slug="${game.slug}">
-            <div class="game-search-result__cover">
-              <img src="${coverUrl}" alt="${game.title}" loading="lazy" onerror="this.src='/assets/images/placeholder-game.png'">
-            </div>
-            <div class="game-search-result__info">
-              <h3 class="game-search-result__title">${game.title}</h3>
-              ${game.description ? `<p class="game-search-result__description">${game.description.substring(0, 200)}${game.description.length > 200 ? '...' : ''}</p>` : ''}
-              ${releaseDate ? `<div class="game-search-result__meta"><span>Released: ${releaseDate}</span></div>` : ''}
-            </div>
-          </a>
-        `;
-      }).join('');
-    } else {
-      // For browsing (platform selection), show as grid
-      gamesGrid.className = 'games-grid';
-      gamesGrid.innerHTML = games.map(game => {
-        const coverUrl = game.cover_url || '/assets/images/placeholder-game.png';
-        const releaseDate = formatDate(game.release_date);
-        
-        return `
-          <a href="?game=${encodeURIComponent(game.slug)}" class="game-card" data-slug="${game.slug}">
-            <div class="game-card__cover">
-              <img src="${coverUrl}" alt="${game.title}" loading="lazy" onerror="this.src='/assets/images/placeholder-game.png'">
-            </div>
-            <div>
-              <h3 class="game-card__title">${game.title}</h3>
-              ${releaseDate ? `<div class="game-card__meta"><span class="game-card__release-date">Released: ${releaseDate}</span></div>` : ''}
-            </div>
-          </a>
-        `;
-      }).join('');
-    }
-  };
-
-  // Render game detail
+  // Render game detail (unchanged from original)
   const renderGameDetail = async (game) => {
     gamesTitle.textContent = '';
     gamesSubtitle.textContent = '';
-    // Hide the title section
     const titleSection = gamesTitle.closest('section');
-    if (titleSection) {
-      titleSection.style.display = 'none';
-    }
+    if (titleSection) titleSection.style.display = 'none';
 
-    // Fetch articles for this game
     let articlesHtml = '<div class="articles-empty">No news articles found for this game.</div>';
     try {
       const articlesUrl = `${API_BASE}/api/articles?game=${encodeURIComponent(game.slug)}&limit=3`;
@@ -293,7 +419,6 @@
 
     const coverUrl = game.cover_url || '/assets/images/placeholder-game.png';
     const releaseDate = formatDate(game.release_date);
-    // Use platforms array from API, fallback to legacy platform or default
     const platforms = game.platforms && game.platforms.length > 0 
       ? game.platforms 
       : (game.platform ? [game.platform] : ['Multiple Platforms']);
@@ -302,7 +427,7 @@
       <div class="game-detail">
         <div class="game-detail__card">
           <h1 class="game-detail__title">${game.title}</h1>
-          <div class="game-detail__cover">
+          <div class="game-detail__cover game-detail__cover--${currentPlatformFamily}">
             <img src="${coverUrl}" alt="${game.title}" onerror="this.src='/assets/images/placeholder-game.png'">
           </div>
           ${releaseDate ? `<div class="game-detail__release">Release Date: ${releaseDate}</div>` : ''}
@@ -314,6 +439,11 @@
           <div class="game-detail__platforms">
             ${platforms.map(p => `<span class="platform-badge">${p}</span>`).join('')}
           </div>
+          ${game.genres && game.genres.length > 0 ? `
+            <div class="game-detail__genres">
+              <strong>Genres:</strong> ${game.genres.join(', ')}
+            </div>
+          ` : ''}
         </div>
         <div class="game-detail__articles">
           <h2 class="section-title">Latest News</h2>
@@ -321,70 +451,6 @@
         </div>
       </div>
     `;
-  };
-
-  // Fetch games
-  const fetchGames = async (searchTerm = '', random = false, limit = null, platformId = null) => {
-    try {
-      gamesGrid.innerHTML = '<div class="games-loading">Loading games...</div>';
-      
-      const params = new URLSearchParams();
-      if (searchTerm) {
-        params.append('search', searchTerm);
-      }
-      if (random) {
-        params.append('random', 'true');
-      }
-      if (limit) {
-        params.append('limit', limit.toString());
-      }
-      if (platformId) {
-        params.append('platform', platformId);
-      }
-
-      const url = `${API_BASE}/api/games${params.toString() ? '?' + params.toString() : ''}`;
-      console.log('[Games] Fetching from:', url);
-
-      const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
-
-      const games = await response.json();
-      console.log(`[Games] Fetched ${games.length} games`);
-
-      // Update title and subtitle
-      if (searchTerm) {
-        gamesTitle.textContent = `Search Results: "${searchTerm}"`;
-        gamesSubtitle.textContent = `Found ${games.length} game${games.length !== 1 ? 's' : ''}`;
-      } else if (platformId) {
-        const platform = PLATFORMS.find(p => p.id === platformId);
-        gamesTitle.textContent = platform ? platform.name : 'Platform Games';
-        gamesSubtitle.textContent = `${games.length} game${games.length !== 1 ? 's' : ''}`;
-        
-        // Update active platform card
-        document.querySelectorAll('.platform-card').forEach(card => {
-          if (card.dataset.platform === platformId) {
-            card.classList.add('is-active');
-          } else {
-            card.classList.remove('is-active');
-          }
-        });
-      } else {
-        gamesTitle.textContent = 'All Games';
-        gamesSubtitle.textContent = `Browse ${games.length} game${games.length !== 1 ? 's' : ''} in our collection`;
-      }
-
-      renderGames(games, !!searchTerm);
-    } catch (error) {
-      console.error('[Games] Error fetching games:', error);
-      gamesGrid.innerHTML = `
-        <div class="games-empty">
-          <h3>Error loading games</h3>
-          <p>${error.message}</p>
-        </div>
-      `;
-    }
   };
 
   // Fetch single game
@@ -396,9 +462,7 @@
       console.log('[Games] Fetching game from:', url);
 
       const response = await fetch(url);
-      if (!response.ok) {
-        throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-      }
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
 
       const game = await response.json();
       console.log('[Games] Fetched game:', game.title);
@@ -422,42 +486,178 @@
       const searchTerm = searchInput.value.trim();
       
       if (!searchTerm) {
-        // If empty, show platforms
         const url = new URL(window.location);
         url.searchParams.delete('search');
         url.searchParams.delete('game');
         url.searchParams.delete('platform');
+        url.searchParams.delete('genre');
         window.history.pushState({}, '', url);
         renderPlatforms();
         return;
       }
       
-      // Update URL without reload
       const url = new URL(window.location);
       url.searchParams.set('search', searchTerm);
       url.searchParams.delete('game');
       url.searchParams.delete('platform');
+      url.searchParams.delete('genre');
       window.history.pushState({}, '', url);
       
-      fetchGames(searchTerm, false, null, null);
+      // Search still loads all results (for now)
+      fetchGamesSearch(searchTerm);
     });
   }
 
+  // Smart search ranking
+  const rankSearchResults = (games, searchTerm) => {
+    const term = searchTerm.toLowerCase().trim();
+    
+    // DLC/expansion keywords
+    const dlcKeywords = ['dlc', 'expansion', 'pack', 'bundle', 'edition', 'mash-up', 
+                         'skin', 'texture', 'addon', 'mod', ':', '-', 'season pass'];
+    
+    return games.map(game => {
+      const title = game.title.toLowerCase();
+      let score = 0;
+      
+      // Exact match = highest priority
+      if (title === term) {
+        score = 1000;
+      }
+      // Title starts with search term = high priority
+      else if (title.startsWith(term)) {
+        score = 900;
+      }
+      // Title contains search term as whole word
+      else if (title.includes(` ${term} `) || title.startsWith(`${term} `) || title.endsWith(` ${term}`)) {
+        score = 800;
+      }
+      // Title contains search term anywhere
+      else if (title.includes(term)) {
+        score = 700;
+      }
+      // In description
+      else if (game.description && game.description.toLowerCase().includes(term)) {
+        score = 600;
+      }
+      
+      // Penalize DLC/expansions/addons (likely not the base game)
+      const isDLC = dlcKeywords.some(keyword => title.includes(keyword));
+      if (isDLC) {
+        score -= 300;
+      }
+      
+      // Bonus for shorter titles (usually base game)
+      if (title.length < 30) {
+        score += 50;
+      }
+      
+      return { ...game, searchScore: score };
+    }).sort((a, b) => b.searchScore - a.searchScore);
+  };
+
+  // Search games with smart ranking
+  const fetchGamesSearch = async (searchTerm) => {
+    try {
+      gamesGrid.innerHTML = '<div class="games-loading">Searching...</div>';
+      const url = `${API_BASE}/api/games?search=${encodeURIComponent(searchTerm)}&limit=500`;
+      const response = await fetch(url);
+      if (!response.ok) throw new Error(`HTTP ${response.status}`);
+      const games = await response.json();
+      
+      gamesTitle.textContent = `Search Results: "${searchTerm}"`;
+      gamesSubtitle.textContent = `Found ${games.length} game${games.length !== 1 ? 's' : ''}`;
+      
+      if (games.length === 0) {
+        gamesGrid.innerHTML = '<div class="games-empty"><h3>No games found</h3></div>';
+        return;
+      }
+      
+      // Rank results
+      const rankedGames = rankSearchResults(games, searchTerm);
+      
+      // Split into top results (high score) and rest
+      const topResults = rankedGames.filter(g => g.searchScore >= 700).slice(0, 5);
+      
+      // Remove duplicates - create a Set of slugs from top results
+      const topResultSlugs = new Set(topResults.map(g => g.slug));
+      
+      // All results excluding what's already in top results
+      const allResults = rankedGames.filter(g => !topResultSlugs.has(g.slug));
+      
+      const renderGame = (game) => {
+        const coverUrl = game.cover_url || '/assets/images/placeholder-game.png';
+        const releaseDate = formatDate(game.release_date);
+        
+        // For search, detect platform from game data
+        const platformFamily = game.platforms ? (() => {
+          const platformStr = game.platforms.join(' ').toLowerCase();
+          if (platformStr.includes('playstation') || platformStr.includes('ps')) return 'playstation';
+          if (platformStr.includes('xbox')) return 'xbox';
+          if (platformStr.includes('nintendo') || platformStr.includes('game boy') || 
+              platformStr.includes('nes') || platformStr.includes('snes')) return 'nintendo';
+          return 'pc';
+        })() : 'pc';
+        
+        return `
+          <a href="?game=${encodeURIComponent(game.slug)}" class="game-search-result">
+            <div class="game-search-result__cover game-search-result__cover--${platformFamily}">
+              <img src="${coverUrl}" alt="${game.title}" loading="lazy" onerror="this.src='/assets/images/placeholder-game.png'">
+            </div>
+            <div class="game-search-result__info">
+              <h3 class="game-search-result__title">${game.title}</h3>
+              ${game.description ? `<p class="game-search-result__description">${game.description.substring(0, 200)}${game.description.length > 200 ? '...' : ''}</p>` : ''}
+              ${releaseDate ? `<div class="game-search-result__meta"><span>Released: ${releaseDate}</span></div>` : ''}
+            </div>
+          </a>
+        `;
+      };
+      
+      gamesGrid.className = 'games-list';
+      
+      // Show top results section if we have high-scoring matches
+      if (topResults.length > 0 && topResults.length < allResults.length) {
+        gamesGrid.innerHTML = `
+          <div class="search-results-section">
+            <h2 class="search-section-title">Top Results</h2>
+            <div class="search-section-content">
+              ${topResults.map(renderGame).join('')}
+            </div>
+          </div>
+          <div class="search-results-section">
+            <h2 class="search-section-title">All Results (${allResults.length})</h2>
+            <div class="search-section-content">
+              ${allResults.map(renderGame).join('')}
+            </div>
+          </div>
+        `;
+      } else {
+        // Just show all results if no clear top matches
+        gamesGrid.innerHTML = allResults.map(renderGame).join('');
+      }
+    } catch (error) {
+      console.error('[Games] Error searching:', error);
+      gamesGrid.innerHTML = `<div class="games-empty"><p>Error: ${error.message}</p></div>`;
+    }
+  };
+
   // Initial load
   if (gameSlug) {
-    // Show game detail
     if (searchInput) searchInput.value = '';
     fetchGame(gameSlug);
   } else if (initialSearch) {
-    // Show search results
     searchInput.value = initialSearch;
-    fetchGames(initialSearch, false, null, null);
+    fetchGamesSearch(initialSearch);
   } else if (platform) {
-    // Show platform games
-    renderPlatforms(); // Show platform cards first
-    setTimeout(() => fetchGames('', false, null, platform), 100); // Then fetch games
+    // Find platform name
+    let platformName = platform;
+    Object.values(PLATFORM_FAMILIES).forEach(family => {
+      const allPlatforms = [...(family.homeConsoles || []), ...(family.handhelds || []), ...(family.platforms || [])];
+      const found = allPlatforms.find(p => p.id === platform);
+      if (found) platformName = found.name;
+    });
+    renderGenres(platform, platformName);
   } else {
-    // Show platform categories
     renderPlatforms();
   }
 
@@ -473,12 +673,18 @@
     if (gameSlug) {
       fetchGame(gameSlug);
     } else if (searchTerm) {
-      fetchGames(searchTerm, false, null, null);
+      fetchGamesSearch(searchTerm);
     } else if (platform) {
-      renderPlatforms(); // Show platform cards first
-      setTimeout(() => fetchGames('', false, null, platform), 100); // Then fetch games
+      let platformName = platform;
+      Object.values(PLATFORM_FAMILIES).forEach(family => {
+        const allPlatforms = [...(family.homeConsoles || []), ...(family.handhelds || []), ...(family.platforms || [])];
+        const found = allPlatforms.find(p => p.id === platform);
+        if (found) platformName = found.name;
+      });
+      renderGenres(platform, platformName);
     } else {
       renderPlatforms();
     }
   });
 })();
+

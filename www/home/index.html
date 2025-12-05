@@ -2,10 +2,105 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta http-equiv="refresh" content="0; url=/index.html">
-  <title>Redirecting…</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RubberRobo — Dashboard</title>
+  <link rel="stylesheet" href="/assets/css/base.css">
+  <link rel="stylesheet" href="/assets/css/layout.css?v=1764909723""">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/gridstack@10.3.1/dist/gridstack.min.css">
+  <link rel="stylesheet" href="/assets/css/pages/dashboard.css?v=1">
 </head>
-<body>
-  <p>Redirecting to <a href="/index.html">RubberRobo Home</a>…</p>
+<body class="layout-shell dashboard-page">
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar__section-title">Dashboard Controls</div>
+    <nav class="sidebar__nav">
+      <button class="sidebar__link sidebar__action-btn" id="addWidgetBtn" type="button">
+        <span>+ Add Widget</span>
+      </button>
+      <button class="sidebar__link sidebar__action-btn" id="addLinkBtnSidebar" type="button">
+        <span>🔗 Add Link</span>
+      </button>
+      <button class="sidebar__link sidebar__action-btn" id="editModeBtn" type="button">
+        <span>✏️ Edit Layout</span>
+      </button>
+      <button class="sidebar__link sidebar__action-btn" id="resizeModeBtn" type="button">
+        <span>⇔ Resize Widgets</span>
+      </button>
+    </nav>
+  </aside>
+
+  <header class="topbar">
+    <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
+    <nav class="topbar__nav" id="topbar-nav">
+      <!-- Populated by dashboard.js -->
+    </nav>
+  </header>
+
+  <main class="content-shell">
+    <div class="content-inner">
+      <section>
+        <h1 class="section-title" id="dashboardTitle">Your Dashboard</h1>
+        <p class="muted" id="dashboardSubtitle">Customize your personal homescreen with widgets and links</p>
+      </section>
+
+      <!-- GridStack Container -->
+      <section class="dashboard-grid-section">
+        <div class="grid-stack" id="dashboard-grid"></div>
+        
+        <!-- Empty State -->
+        <div class="dashboard-empty" id="dashboardEmpty">
+          <div class="dashboard-empty__icon">📊</div>
+          <h3>Your dashboard is empty</h3>
+          <p>Click "Add Widget" to get started with your personalized homescreen</p>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Add Widget Modal -->
+  <div class="modal" id="widgetModal" aria-hidden="true">
+    <div class="modal__backdrop" id="widgetModalBackdrop"></div>
+    <div class="modal__content">
+      <div class="modal__header">
+        <h2>Add Widget</h2>
+        <button class="modal__close" id="widgetModalClose" type="button">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="widget-selector">
+          <!-- Accordion Categories -->
+          <div class="widget-accordion" id="widgetAccordion">
+            <!-- Populated by JS -->
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Add Link Modal -->
+  <div class="modal" id="linkModal" aria-hidden="true">
+    <div class="modal__backdrop" id="linkModalBackdrop"></div>
+    <div class="modal__content modal__content--small">
+      <div class="modal__header">
+        <h2>Add Link</h2>
+        <button class="modal__close" id="linkModalClose" type="button">✕</button>
+      </div>
+      <div class="modal__body">
+        <div class="link-widget-creator">
+          <p class="modal__description">Add a bookmark or external link to your dashboard</p>
+          <input type="text" id="linkUrl" placeholder="Enter URL (e.g., https://youtube.com)" class="link-input">
+          <input type="text" id="linkTitle" placeholder="Custom title (optional)" class="link-input">
+          <div class="modal__actions">
+            <button class="action-button action-button--primary" id="addLinkBtn">Add Link</button>
+            <button class="action-button action-button--outline" id="linkModalCancel">Cancel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.6/dist/chart.umd.min.js" crossorigin="anonymous"></script>
+  <script src="/assets/js/sidebar-config.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gridstack@10.3.1/dist/gridstack-all.js"></script>
+  <script src="/assets/js/widgets/widget-components.js?v=14"></script>
+  <script src="/assets/js/pages/dashboard.js?v=14"></script>
 </body>
 </html>

@@ -3,9 +3,9 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>RubberRobo — News Category</title>
+  <title>RubberRobo — Patch Notes</title>
   <link rel="stylesheet" href="/assets/css/base.css">
-  <link rel="stylesheet" href="/assets/css/layout.css">
+  <link rel="stylesheet" href="/assets/css/layout.css?v=1764909723"">
   <link rel="stylesheet" href="/assets/css/pages/news.css">
 </head>
 <body class="layout-shell">
@@ -17,32 +17,28 @@
   <header class="topbar">
     <button class="topbar__collapse" id="sidebar-toggle" type="button">☰</button>
     <nav class="topbar__nav" id="topbar-nav"></nav>
-    <div class="topbar__actions"></div>
+    <div class="topbar__actions">
+      <button class="action-button" type="button">Follow categories</button>
+    </div>
   </header>
 
   <main class="content-shell">
     <div class="content-inner">
       <section>
-        <h1 class="section-title">Category Name</h1>
-        <p class="muted">Use this page for focused feeds like Minecraft news or security updates.</p>
+        <h1 class="section-title">Patch Notes</h1>
+        <p class="muted">Latest updates from your favorite games.</p>
+        <div class="news-top-stories" id="patchFeatured"></div>
       </section>
 
       <section>
-        <div class="news-feed">
-          <article class="card story-card">
-            <div class="story-card__thumb"></div>
-            <div>
-              <h3>Category story placeholder</h3>
-              <p class="muted">Add more cards or build this page dynamically from backend data.</p>
-              <a class="action-button" href="#">Read more</a>
-            </div>
-          </article>
-        </div>
+        <h2 class="section-title">Recent Updates</h2>
+        <div class="news-feed" id="patchFeed"></div>
       </section>
     </div>
   </main>
 
-  <script src="/assets/js/sidebar-config.js"></script>
-  <script src="/assets/js/layout.js"></script>
+  <script src="/assets/js/sidebar-config.js?v=20251113"></script>
+  <script src="/assets/js/layout.js?v=20251113"></script>
+  <script src="/assets/js/pages/patch-notes.js?v=20251113"></script>
 </body>
 </html>

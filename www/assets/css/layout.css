@@ -85,17 +85,6 @@ body.layout-shell {
   flex-wrap: wrap;
   flex: 1;
   min-width: 0;
-  overflow-x: auto;
-  scrollbar-width: thin;
-}
-
-.topbar__nav::-webkit-scrollbar {
-  height: 4px;
-}
-
-.topbar__nav::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.2);
-  border-radius: 2px;
 }
 
 .topbar__nav-link {
@@ -137,24 +126,83 @@ body.layout-shell {
   transform: translateY(-1px);
 }
 
+/* Search Bar Styling */
+.topbar__search {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.topbar__search input[type="search"] {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  color: var(--color-text);
+  font-size: 0.95rem;
+  min-width: 200px;
+  transition: all 0.2s ease;
+}
+
+.topbar__search input[type="search"]::placeholder {
+  color: var(--color-text-muted);
+  opacity: 0.6;
+}
+
+.topbar__search input[type="search"]:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.08);
+  border-color: rgba(255, 122, 61, 0.5);
+  box-shadow: 0 0 0 3px rgba(255, 122, 61, 0.1);
+}
+
+.topbar__search input[type="search"]:hover:not(:focus) {
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Search button specific styling */
+.topbar__search .action-button {
+  background: rgba(255, 122, 61, 0.15);
+  border: 1px solid rgba(255, 122, 61, 0.3);
+  color: var(--color-accent);
+  font-weight: 500;
+}
+
+.topbar__search .action-button:hover {
+  background: rgba(255, 122, 61, 0.25);
+  border-color: rgba(255, 122, 61, 0.5);
+  transform: translateY(-1px);
+}
+
 .content-shell {
   grid-area: content;
-  padding: 2rem;
+  padding: 1.5rem;
   background: radial-gradient(circle at top, rgba(37, 117, 252, 0.08), transparent 60%);
   max-width: 100%;
   overflow-x: hidden;
   overflow-y: auto;
-  height: 100vh;
+  height: 100%;
+  box-sizing: border-box;
 }
 
 .content-inner {
-  width: min(100%, 1480px);
-  max-width: 100%;
+  width: 100%;
+  max-width: 1400px;
   margin: 0 auto;
+  padding: 0 2rem;
   display: flex;
   flex-direction: column;
   gap: 2.5rem;
   overflow-x: hidden;
+  box-sizing: border-box;
+}
+
+/* Dashboard keeps full width for widgets */
+.dashboard-page .content-inner {
+  max-width: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body.sidebar-collapsed {
@@ -183,20 +231,6 @@ body.sidebar-collapsed .sidebar__nav {
   .topbar {
     gap: 0.75rem;
     padding: 0 1rem;
-  }
-
-  .topbar__nav {
-    overflow-x: auto;
-    scrollbar-width: thin;
-  }
-
-  .topbar__nav::-webkit-scrollbar {
-    height: 4px;
-  }
-
-  .topbar__nav::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.2);
-    border-radius: 2px;
   }
 
   .sidebar {

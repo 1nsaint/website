@@ -1,16 +1,15 @@
 window.NavigationConfig = {
   topNav: [
-    { key: 'home', label: 'Home', href: '/index.html' },
+    { key: 'home', label: 'Dashboard', href: '/home/index.html' },
     { key: 'performance', label: 'Performance', href: '/performance/index.html' },
     { key: 'apps', label: 'Apps', href: '/apps/index.html' },
     { key: 'crypto', label: 'Crypto', href: '/crypto/index.html' },
-    { key: 'news', label: 'News', href: '/news/index.html' },
+    { key: 'games', label: 'Games', href: '/games/index.html' },
     { key: '3d-printing', label: '3D Printing', href: '/3d-printing/index.html' }
   ],
   sideNav: {
     home: [
-      { label: 'Overview', href: '/index.html' },
-      { label: 'Widget Preset', href: '/home/presets/card-empty.html' }
+      { label: 'Dashboard', href: '/home/index.html' }
     ],
     performance: [
       { label: 'System Overview', href: '/performance/index.html' },
@@ -25,14 +24,15 @@ window.NavigationConfig = {
       { label: 'Market Overview', href: '/crypto/index.html' },
       { label: 'Preset Card', href: '/crypto/presets/card.html' }
     ],
-    news: [
-      { label: 'Headlines', href: '/news/index.html?filter=all' },
-      { label: 'Favorites', href: '/news/index.html?filter=favorites' },
-      { label: 'Tech', href: '/news/index.html?filter=tech' },
-      { label: 'Gaming', href: '/news/index.html?filter=gaming' },
-      { label: 'Patch Notes', href: '/news/patch-notes/index.html' },
-      { label: 'Sample Category', href: '/news/categories/sample.html' },
-      { label: 'Story Card Preset', href: '/news/presets/story-card.html' }
+    games: [
+      { label: 'Browse Games', href: '/games/index.html' },
+      { label: 'News', href: '/games/news/index.html' },
+      { label: 'Favorites', href: '/games/news/index.html?filter=favorites' },
+      { label: 'Tech', href: '/games/news/index.html?filter=tech' },
+      { label: 'Gaming', href: '/games/news/index.html?filter=gaming' },
+      { label: 'Patch Notes', href: '/games/patch-notes/index.html' },
+      { label: 'Sample Category', href: '/games/categories/sample.html' },
+      { label: 'Story Card Preset', href: '/games/presets/story-card.html' }
     ],
     '3d-printing': [
       { label: 'Profile Overview', href: '/3d-printing/index.html' },

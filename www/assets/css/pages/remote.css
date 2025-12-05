@@ -38,7 +38,7 @@
 
 .remote-gallery {
   display: grid;
-  gap: 6px;
+  gap: 1.5rem;
   width: 100%;
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }

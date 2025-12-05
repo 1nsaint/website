@@ -23,8 +23,8 @@
     if (pathname.startsWith('/apps')) {
       return 'apps';
     }
-    if (pathname.startsWith('/news')) {
-      return 'news';
+    if (pathname.startsWith('/games')) {
+      return 'games';
     }
     if (pathname.startsWith('/3d-printing')) {
       return '3d-printing';
